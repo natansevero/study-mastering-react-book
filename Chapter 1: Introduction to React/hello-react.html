@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+  <script type="text/jsx">
+    // JSX, props
+    var HelloReact = React.createClass({
+      propTypes: {
+        message: React.PropTypes.string,
+        number: React.PropTypes.number,
+        requiredString: React.PropTypes.string.isRequired
+      },
+      getDefaultProps: function() {
+        return {
+          defaultPropName: 'im a default prop'
+        }
+      },
+      render: function() {
+        var localMessage = this.props.message;
+
+        return (
+          <div>
+            <h1> Hello React, JSX and Props </h1>
+            <div> { localMessage } </div>
+            <div> Value of the prop with sum: { this.props.number + 1 } </div>
+            <div> { this.props.requiredString } </div>
+            <div> Default prop: { this.props.defaultPropName } </div>
+          </div>
+        )
+      }
+    });
+
+    // state
+    var StateComponent = React.createClass({
+      getInitialState: function() {
+        return {
+          message: 'i am from default state'
+        }
+      },
+      updateMessage: function(e) {
+        this.setState({ message: e.target.value })
+      },
+      render: function() {
+        return (
+          <div>
+            <h1> State </h1>
+            <input type="text" onChange={this.updateMessage} />
+            <div>{this.state.message}</div>
+          </div>
+        )
+      }
+    });
+
+    // main component to render both components above
+    var MainComponent = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <HelloReact message="Message from props" number={23} requiredString="The string is required" />
+            <StateComponent />
+          </div>
+        )
+      }
+    })
+
+    ReactDOM.render(
+      <MainComponent />,
+      document.getElementById('view')
+    );
+  </script>
+</html>
