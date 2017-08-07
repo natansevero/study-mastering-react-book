@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+
+  <script type="text/jsx">
+
+    var HelloMessage = React.createClass({
+      render: function() {
+        return <h2>{this.props.message}</h2>
+      }
+    });
+
+    var GlyphIcon = React.createClass({
+      render: function() {
+        return (
+          <span className={'glyphicon glyphicon-' + this.props.icon}></span>
+        )
+      }
+    });
+
+    var TextBox = React.createClass({
+      getInitialState: function() {
+        return {
+          isEditing: false
+        }
+      },
+      edit: function() {
+        this.setState({ isEditing: true })
+      },
+      update: function() {
+        this.props.update(this.refs.messageTextBox.value)
+        this.setState({ isEditing: false })
+      },
+      render: function() {
+        return (
+          <div>
+            {this.props.label} <br/>
+            <input type="text" ref="messageTextBox" disabled={!this.state.isEditing} />
+            {
+              this.state.isEditing ?
+                <button onClick={this.update}><GlyphIcon icon="ok" />Update</button>
+                :
+                <button onClick={this.edit}><GlyphIcon icon="pencil" />Edit</button>
+            }
+          </div>
+        )
+      }
+    });
+
+    var HelloReact = React.createClass({
+      getInitialState: function() {
+        return { firstName: '', lastName: '' }
+      },
+      update: function(key, value, u) {
+        console.log(key, value);
+        var newState = {};
+        newState[key] = value;
+        this.setState(newState);
+      },
+      render: function() {
+        return (
+          <div>
+            <HelloMessage message={'Hello ' + this.state.firstName + ' ' + this.state.lastName} />
+            <TextBox label='First Name' update={this.update.bind(this, 'firstName')} />
+            <TextBox label='Last Name' update={this.update.bind(this, 'lastName')} />
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <HelloReact />,
+      view
+    );
+
+  </script>
+</html>

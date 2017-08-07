@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+  <script type="text/jsx">
+
+    var HelloMessage = React.createClass({
+      render: function() {
+        return (
+          <div> {this.props.message} </div>
+        )
+      }
+    });
+
+    var HelloReact = React.createClass({
+      getInitialState: function() {
+        return {
+          message: 'default'
+        }
+      },
+      updateMessage: function() {
+        console.info('updateMessage');
+        this.setState( { message: this.refs.messageTextBox.value } )
+      },
+      render: function() {
+        return (
+          <div>
+            <HelloMessage message='Hello Message' />
+            <input type="text" ref='messageTextBox' />
+            <button onClick={this.updateMessage}>Update</button>
+            <div>{this.state.message}</div>
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <HelloReact />,
+      view
+    );
+
+  </script>
+</html>

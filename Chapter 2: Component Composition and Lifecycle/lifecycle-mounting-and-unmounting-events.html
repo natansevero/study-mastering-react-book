@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+
+  <script type="text/jsx">
+
+    var HelloMessage = React.createClass({
+      componentWillMount: function() {
+        console.log('componentWillMount');
+      },
+      componentDidMount: function() {
+        console.log('componentDidMount');
+      },
+      componentWillUnmount: function() {
+        console.log('componentWillUnmount');
+      },
+      render: function() {
+        console.log('render');
+        return <h2>{this.props.message}</h2>
+      }
+    })
+
+    var HelloReact = React.createClass({
+      reload: function() {
+        ReactDOM.unmountComponentAtNode(view);
+        ReactDOM.render(
+          <HelloReact />,
+          view
+        )
+      },
+      render: function() {
+        return (
+          <div>
+            <HelloMessage message="Hello Lifecycle"></HelloMessage>
+            <button onClick={this.reload}>Reload</button>
+          </div>
+        )
+      }
+    })
+
+    ReactDOM.render(
+      <HelloReact />,
+      view
+    );
+
+  </script>
+</html>
