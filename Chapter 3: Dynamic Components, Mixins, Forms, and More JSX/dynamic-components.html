@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+  <script type="text/jsx">
+
+    var UserRow = React.createClass({
+      render: function() {
+        return (
+          <tr>
+            <td>{this.props.user.userName}</td>
+            <td>
+              <a href={'mailto:' + this.props.user.email}>
+                {this.props.user.email}
+              </a>
+            </td>
+          </tr>
+        )
+      }
+    });
+
+    var UserList = React.createClass({
+      getInitialState: function() {
+        return {
+          users: [
+            { id: 1, userName: 'RyanVice', email: 'ryan@vicesoftware.com' },
+            { id: 2, userName: 'AdamHorton', email: 'digitalicarus@gmail.com' }
+          ]
+        }
+      },
+      render: function() {
+        var users = this.state.users.map(function(user) {
+          return (
+            <UserRow user={user} key={user.id} />
+          )
+        })
+
+        return (
+          <table>
+            <tr>
+              <td>User Name</td>
+              <td>E-mail</td>
+            </tr>
+
+            {users}
+          </table>
+        )
+      }
+    })
+
+    ReactDOM.render(
+      <UserList />,
+      view
+    );
+
+  </script>
+</html>
