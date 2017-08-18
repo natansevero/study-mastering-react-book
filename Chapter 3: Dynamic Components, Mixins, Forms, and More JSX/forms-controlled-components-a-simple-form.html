@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello React</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+  </body>
+
+  <script src="https://fb.me/react-with-addons-0.14.0.js"></script>
+  <script src="https://fb.me/react-dom-0.14.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+
+  <script type="text/jsx">
+
+    var TextBox = React.createClass({
+      render: function() {
+        return (
+          <input className='form-control'
+            name={this.props.name}
+            type='text'
+            value={this.props.value}
+            onChange={this.props.onChange} />
+        );
+      }
+    });
+
+    var ExampleForm = React.createClass({
+      getInitialState: function() {
+        return { form: { firstName: 'Natan', lastName: 'Severo' } }
+      },
+      onChange: function(event) {
+        this.state.form[event.target.name] = event.target.value;
+
+        this.setState({ form: this.state.form });
+      },
+      onSubmit: function(event) {
+        event.preventDefault();
+
+        alert(`Form submitted! \nfirstName: ${this.state.form.firstName}
+                               \nlastName: ${this.state.form.lastName}`);
+      },
+      // render: function() {
+      //   return (
+      //     <form onSubmit={this.onSubmit}>
+      //       <TextBox name='firstName'
+      //         value={this.state.form.firstName}
+      //         onChange={this.onChange} />
+      //
+      //       <TextBox name='lastName'
+      //         value={this.state.form.lastName}
+      //         onChange={this.onChange} />
+      //
+      //       <button className='btn btn-success' type='submit'>Submit</button>
+      //     </form>
+      //   )
+      // }
+      // Refactoring
+      render: function() {
+        var self = this;
+        return (
+          <form onSubmit={this.onSubmit}>
+            {
+              Object.keys(this.state.form).map(function(key) {
+                return (
+                  <TextBox key={key} name={key} value={self.state.form[key]} onChange={self.onChange} />
+                )
+              })
+            }
+            <button className='btn btn-success' type='submit'>Submit</button>
+          </form>
+        )
+      }
+    })
+
+    ReactDOM.render(
+      <ExampleForm />,
+      view
+    );
+
+  </script>
+</html>
