@@ -2,7 +2,7 @@
 
 In this chapter, we are going to cover the following
 
-* What is a Simple Page Application (SPA)?
+* What is a Single Page Application (SPA)?
 * Aspects of a SPA design
 * Build systems
 * CSS preprocessors
